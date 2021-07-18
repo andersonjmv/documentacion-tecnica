@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>SQL | Documentación Técnica</title>
+  </head>
+  <body>
+    <nav id="navbar">
+      <header>
+        <h1>Documentación SQL</h1>
+      </header>
+      <ul id="nav">
+        <li><a href="#Introducción" class="nav-link">Introducción</a></li>
+        <li>
+          <a href="#Conceptos_basicos" class="nav-link">Conceptos Basicos</a>
+        </li>
+        <li>
+          <a href="#Tipos_de_datos" class="nav-link">Tipos de datos</a>
+        </li>
+        <li>
+          <a href="#Consultas" class="nav-link">Consultas</a>
+        </li>
+        <li><a href="#Referencia" class="nav-link">Referencia</a>
+        </li>
+      </ul>
+    </nav>
+    <main id="main-doc">
+      <div class="main-wrap">
+        <section class="main-section" id="Introducción">
+          <header>
+            <h2>Introducción</h2>
+          </header>
+          <p>
+            SQL (Structured Query Language) es un lenguaje para administrar datos en una base de datos. A diferencia de
+            otros lenguajes de programación, solo se usa para una cosa: hablar con bases de datos. Por lo tanto, es
+            posible que lo escuche referido como un lenguaje de programación de "propósito especial" o "específico de
+            dominio". Esto significa que no usará SQL para escribir la próxima gran aplicación web, pero podría usarla
+            para interactuar con la base de datos que la alimenta.
+          </p>
+          <p>
+            Aunque SQL solo tiene un propósito, es utilizado por muchos sistemas de bases de datos diferentes como MySQL,
+            PostgreSQL o el sistema que usaremos en este curso: SQLite. Hay un puñado de cosas que otros sistemas SQL como
+            Postgres o MySQL pueden hacer que SQLite no admite. Cada sistema de base de datos tiene sus propias fortalezas
+            y debilidades, y a medida que aprenda más sobre ellas, debe evaluarlas cuidadosamente al decidir cuál usar con
+            qué propósito. Para nosotros, SQLite proporciona una barrera de entrada baja y es fácil de poner en
+            funcionamiento.
+          </p>
+          <h3>Los desarrolladores web ❤️ las bases de datos</h3>
+          <p>
+            ¿Por qué necesitamos dominar SQL? Como desarrollador web de pila completa, con frecuencia trabajará con bases
+            de datos para administrar los datos asociados con sus aplicaciones. Piensa en las aplicaciones web con las que
+            estás familiarizado. Facebook guarda los datos de los usuarios y almacena o persiste sus asociaciones con sus
+            amigos. Amazon tiene una enorme base de datos de artículos a la venta. Instagram tiene una enorme base de
+            datos para las fotos que se suben cada segundo. Asi como la mayoría de los sitios con los que interactúa todos
+            los días y, en consecuencia, la mayoría de los sitios en los que trabajará o creará, necesitan bases de datos
+            para conservar los datos.
+          </p>
+        </section>
+        <section class="main-section" id="Conceptos_basicos">
+          <header>
+            <h2>Conceptos Basicos</h2>
+          </header>
+          <h3>Estructura de una base de datos</h3>
+          <p>Las bases de datos relacionales como SQLite almacenan datos en una estructura a la que nos referimos como una
+            tabla. Puede pensar en una tabla de una base de datos como si fuera una hoja de cálculo. Definimos columnas
+            específicas en nuestra tabla, y luego almacenamos cualquier número de lo que llamamos 'registros' como filas
+            en nuestra base de datos. Un registro es solo información que se refiere a una entidad específica. Por
+            ejemplo, si tuviera una tabla llamada "Usuario", podría imaginar una estructura como esta:
+          </p>
+          <table>
+            <tr>
+              <th>nombre</th>
+              <th>edad</th>
+              <th>email</th>
+            </tr>
+            <tr>
+              <th>john</th>
+              <th>28</th>
+              <th>john@gmail.com</th>
+            </tr>
+            <tr>
+              <th>Jose</th>
+              <th>32</th>
+              <th>jose.jose@gmail.com</th>
+            </tr>
+            <tr>
+              <th>Fernando</th>
+              <th>21</th>
+              <th>fergomez@gmail.com</th>
+            </tr>
+          </table>
+          <p>Cada columna tiene un nombre y cada fila contiene la información correspondiente sobre una usuario.</p>
+          <h3>Crear Tabla</h3>
+          <p>Cuando creamos una nueva base de datos, se presenta como una especie de tablero en blanco.
+            <br>
+            Una vez que crea una base de datos, creamos una
+            tabla usando la siguiente declaración:
+          </p>
+          <code>
+          CREATE TABLE nombre_tabla;
+          </code>
+          <p>Pero antes de que podamos almacenar cualquier dato real en una tabla, necesitaremos definir las columnas en
+            la tabla, así como el tipo específico de datos que almacenará cada columna.
+          </p>
+          <p>Vamos a intentarlo. Es momento de escribir algo de codigo &#129299; </p>
+          <h3>Creando una tabla</h3>
+          <p>Abra su terminal y crea una nueva tabla. En este caso nuestra tabla se llamara
+            gatos, sin embargo puede llamarla como desee:
+          </p>
+          <code> CREATE TABLE gatos;</code>
+          <p>Deberia ver el siguiente error:</p>
+          <code>
+          CREATE TABLE gatos; <br>
+          Error: near ";": syntax error
+          </code>
+          <p>Esto es porque SQLite espera que incluyamos almenos una definicion de la estructura de esa tabla, ya que,
+            cuando creamos tablas de bases de datos, necesitamos especificar algunos nombres de columna asi como el tipo
+            de datos que guardaremos en cada columna.
+          </p>
+          <p>Intentemos nuevamente crear nuestra tabla con la siguiente declaracion:</p>
+          <code>
+          CREATE TABLE gatos (<br>
+          id INTEGER PRIMARY KEY,<br>
+          nombre TEXT, <br>
+          edad INTEGER <br>
+          );
+          </code>
+          <p>Analicemos el codigo anterior:</p>
+          <br>
+          <ul>
+            <li>Usamos el comando CREATE TABLE para crear una nueva tabla llamada "gatos".</li>
+            <li>Incluimos una lista de nombres de columna junto con el tipo de datos que almacenaran. TEXT significa que
+              almacenaremos texto sin un formato, INTEGER significa que almacenaremos un numero. Tenga en cuenta que el
+              uso de mayusculas en el codigo es arbitrario, pero es una convencion ayudar separar los comandos SQL de los
+              nombres que inventamos para nuestras tablas y columnas.
+            </li>
+            <li>Siempre que creemos una tabla, independiente de los nombres de columna y tipos de datos, debe definirse
+              con una columna ID INTEGER PRIMARY KEY, incluido el tipo de datos y la designacion de clave primaria,
+              nuestra tablas de bases de datos deben estar indexadas por un numero, cada fila de nuestra tabla tendra un
+              numero, al que llamaremos "id", al igual que en una hoja de calculo en Excel. Numerar las filas de nuestras
+              tablas hace que nuestros datos sean mucho mas faciles de acceder, actualizar y organizar. Las claves
+              primarias son unicas y se incrementan automaticamente, lo que significa que comienzan en 1 y a cada nueva
+              fila se le asigna automaticamente el siguiente valor numerico.
+            </li>
+          </ul>
+          <br>
+          <h3>Modificando una tabla</h3>
+          <p>Supongamos que queremos agregar una nueva columna raza nuestra tabla gatos.</p>
+          <code>
+          sqlite> ALTER TABLE gatos ADD COLUMN raza TEXT;
+          </code>
+          <h3>Drop de una tabla</h3>
+          <p>Si por alguna razon necesitaramos eliminar una de nuestra tablas, podemos ayudarnos con el comando DROP TABLE
+          </p>
+          <code>DROP TABLE cats;</code>
+        </section>
+        <section class="main-section" id="Tipos_de_datos">
+          <header>
+            <h2>Tipos de datos</h2>
+          </header>
+          <h3>¿Por que son tan importantes los tipos de datos?</h3>
+          <p>
+            Hemos aprendido que cuando creamos una tabla, debemos incluir un nombre para ella y definir al menos una
+            columna. Definimos columnas con el comando CREATE incluyendo un nombre y un tipo de datos para que SQL sepa
+            el tipo de datos que almacenaremos allí. La práctica de declarar explícitamente un tipo se conoce como
+            "mecanografía".
+          </p>
+          <p>
+            ¿Por qué es importante que usemostipos de datos en nuestra base de datos? En pocas palabras, nos permite
+            ejercer cierto nivel de control sobre nuestros datos. No solo informa a nuestra base de datos del tipo de
+            datos que planeamos almacenar en una columna, sino que también lo restringe. Por ejemplo, mira la columna de
+            edad a continuación en nuestra tabla de gatos. ¿Qué queremos decir con edad? ¿Y si tuviéramos esto?
+          </p>
+          <table>
+            <tr>
+              <th>nombre</th>
+              <th>raza</th>
+              <th>años</th>
+            </tr>
+            <tr>
+              <th>charles</th>
+              <th>maine coon</th>
+              <th>2</th>
+            </tr>
+            <tr>
+              <th>timmy</th>
+              <th>munchkin</th>
+              <th>dos</th>
+            </tr>
+            <tr>
+              <th>amonet</th>
+              <th>bombay</th>
+              <th>0.5</th>
+            </tr>
+          </table>
+          <br>
+          <p>¿Aspiramos que la edad se represente como un número entero, una palabra o un decimal?.</p>
+          <p>Si te pedimos que sumes las edades de todos los gatos, simplemente podrías convertir el 'dos' en 2 en su
+            cabeza, pero su base de datos no puede hacer eso. No tiene esa capacidad porque la lógica involucrada en la
+            conversión de una palabra en un número sería densa e ineficiente. ¿Qué pasa con los diferentes idiomas? ¿Qué
+            pasa con las diferentes ortografías? ¿Mayúsculas, errores tipográficos o diferentes convenciones de separación
+            de sílabas? Estas son solo algunas de las razones por las que esto podría comenzar a volverse loco. En otras
+            palabras, debido a que las bases de datos están diseñadas para almacenar grandes cantidades de datos, están
+            muy preocupadas por almacenar, acceder y actuar sobre esos datos de la manera más eficiente y normal posible.
+          </p>
+          <p>Escribir nos da la capacidad de realizar todo tipo de operaciones con resultados predecibles. Por ejemplo, la
+            capacidad de realizar operaciones matemáticas como SUM, por ejemplo, sumar enteros, no solo depende de que
+            todo sea un entero de algún tipo, sino que también lo esperaría. Si intentara, por ejemplo, con SUMtodos los
+            gatos en la tabla anterior, SQLite realmente intentaría convertir o emitir su tipo a algo que pueda SUM.
+            Trataría de convertir todo lo que pueda en un INTEGERe ignorar los caracteres alfabéticos. Esto puede conducir
+            a problemas reales. Sin escribir, nuestros datos pueden volverse complicados y desordenados, y sería difícil
+            hacer preguntas a la base de datos sobre grandes conjuntos de datos.
+          </p>
+          <p>Vamos a adherirnos estrictamente a almacenar solo datos que se ajusten al tipo de datos que le hemos dado a
+            una columna en particular.
+          </p>
+          <h3>Tipos de datos</h3>
+          <p>Los diferentes sistemas de bases de datos también tienen diferentes tipos de datos disponibles, que son
+            importantes y útiles para saber cuando se trata de esos sistemas. SQLite es un buen punto de partida para
+            aprender sobre tipos de datos porque solo tiene cuatro categorías básicas de tipos de datos; son:
+          </p>
+          <code>
+          TEXT <br>
+          INTEGER <br>
+          REAL <br>
+          BLOB
+          </code>
+          <p>Analizemos cada tipo en mas detalle</p>
+          <h3>TEXT</h3>
+          <p>Los caracteres alfanuméricos que queremos representar como texto sin formato. El cuerpo de este párrafo es
+            texto. Tu nombre es texto. Su dirección de correo electrónico es un texto. Sin embargo, su altura, peso y edad
+            probablemente no lo sean.
+          </p>
+          <h3>INTEGER</h3>
+          <P>Cualquier cosa que queramos representar como un número entero. Si es un número y no contiene letras o
+            caracteres especiales o puntos decimales, entonces deberíamos almacenarlo como un número entero. Si lo usamos
+            para realizar operaciones matemáticas o crear una comparación entre dos filas diferentes en nuestra base de
+            datos, entonces definitivamente queremos almacenarlo como un entero. Si es solo un número, generalmente no es
+            una mala idea almacenarlo como un número entero. Es posible que nunca agregue dos números de dirección de la
+            casa juntos, pero es posible que desee ordenarlos numéricamente. Por ejemplo, en el caso anterior, es posible
+            que desee obtener el mayor número y no el texto más largo.
+          </p>
+          <h3>REAL</h3>
+          <p>Cualquier cosa que sea un simple decimal antiguo como 1.3 o 2.25. SQLite almacenará decimales de hasta 15
+            caracteres de longitud. Puede almacenar 1.2345678912345 o 1234.5678912345, pero 1.23456789123456789 solo
+            almacenaría 1.2345678912345. En otros sistemas de bases de datos esto se llama 'doUble precision'.
+          </p>
+          <h3>BLOB</h3>
+          <p>Puede encontrar el BLOBtipo de datos mientras está buscando en Google o leyendo más en SQLite. Por ahora, no
+            usaremos BLOB. Generalmente se usa para guardar datos binarios.
+          </p>
+        </section>
+        <section class="main-section" id="Consultas">
+          <header>
+            <h2>Consultas</h2>
+          </header>
+          <ul>
+          <li>ORDER BY</li>
+          <li>LIMIT</li>
+          <li>BETWEEN</li>
+          <li>COUNT</li>
+          <li>GROUP BY</li>
+        </ul>
+        </section>
+        <section class="main-section" id="Referencia">
+          <header>
+            <h2>Referencia</h2>
+          </header>
+          <ul>
+            <li>
+              Toda la documentación de esta pagina es tomada de:
+              <a href="https://app.gitbook.com/@ajmv/s/llano-coders/" target="_blank">Llano Coders </a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
